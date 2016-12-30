@@ -1,0 +1,27 @@
+// Place all the styles related to the comparisons controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  margin: 20px;
+}
+
+.jumbotron-fluid {
+  text-align: center;
+}
+
+.button-row {
+}
+
+.pref-button {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}

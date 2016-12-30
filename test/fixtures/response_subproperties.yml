@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subkey_num: MyString
+  subkey: MyString
+  value: MyString
+
+two:
+  subkey_num: MyString
+  subkey: MyString
+  value: MyString

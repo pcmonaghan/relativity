@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form_id: MyString
+  record_id: MyString
+  key_num: MyString
+  key: MyString
+  value: MyString
+
+two:
+  form_id: MyString
+  record_id: MyString
+  key_num: MyString
+  key: MyString
+  value: MyString

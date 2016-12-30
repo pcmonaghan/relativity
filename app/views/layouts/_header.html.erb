@@ -1,0 +1,17 @@
+<header class="navbar-default navbar-fixed-top navbar-inverse">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Relativity</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Profile", '#'%></li><!--#user_path(current_user.id)-->
+          <li class="divider"></li>
+          <li>
+            <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
