@@ -4,14 +4,15 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Relativity</a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "Profile", '#'%></li><!--#user_path(current_user.id)-->
-          <li class="divider"></li>
-          <li>
-            <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
-          </li>
-        </ul>
+        <% if user_signed_in? %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Profile", '#'%></li><!--#user_path(current_user.id)-->
+            <li class="divider"></li>
+            <li>
+              <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
+            </li>
+          </ul>
+        <% end %>
       </div>
     </nav>
-  </div>
 </header>
