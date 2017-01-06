@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230023951) do
+ActiveRecord::Schema.define(version: 20170106073607) do
 
   create_table "field_keys", force: :cascade do |t|
     t.string   "form_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20161230023951) do
     t.string   "value"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.string   "url"
     t.index ["response_property_id"], name: "index_response_subproperties_on_response_property_id"
   end
 

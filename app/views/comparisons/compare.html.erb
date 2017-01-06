@@ -30,10 +30,12 @@
               <h5 style="display:inline"><%= subfield.subkey + ": " %></h5>
             <% end %>
             <!-- Print value, with added formatting for dates -->
-            <% unless (field1.key == "Date") %>
-              <span><%= subfield.value %></span>
-            <% else %>
+            <% if (field1.key.include? "Date") %>
               <span><%= subfield.value[4...6] + "-" + subfield.value[6...8] + "-" + subfield.value[0...4] %></span>
+            <% elsif !!subfield.url%>
+              <span><%= link_to "#{subfield.value}", subfield.url %></span>
+            <% else %>
+              <span><%= subfield.value %></span>
             <% end %>
             <p></p>
           <% end %>
@@ -50,10 +52,12 @@
               <h5 style="display:inline"><%= subfield.subkey + ": " %></h5>
             <% end %>
             <!-- Print value, with added formatting for dates -->
-            <% unless (field2.key == "Date") %>
-              <span><%= subfield.value %></span>
-            <% else %>
+            <% if (field2.key.include? "Date") %>
               <span><%= subfield.value[4...6] + "-" + subfield.value[6...8] + "-" + subfield.value[0...4] %></span>
+            <% elsif !!subfield.url%>
+              <span><%= link_to "#{subfield.value}", subfield.url %></span>
+            <% else %>
+              <span><%= subfield.value %></span>
             <% end %>
             <p></p>
           <% end %>

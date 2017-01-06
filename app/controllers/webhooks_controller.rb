@@ -22,23 +22,36 @@ class WebhooksController < ApplicationController
         next
       end
 
-      subkey_num = tag
+      subkey_num = tag #field number represented as "Field123"
+      url = nil #for linked resources
+
       field_key_entry = form.field_keys.find_by(form_id: form.id, subkey_num: subkey_num)
       if field_key_entry
         key_num = field_key_entry.key_num
         key_name = field_key_entry.key
         subkey_name = field_key_entry.subkey
       else
-        expansion = expand_field_key_list(data['FieldStructure'], subkey_num)
-        key_num = expansion[:key_num]
-        key_name = expansion[:key_name]
-        subkey_name = expansion[:subkey_name]
-        if key_name #if a field number was found (i.e. the current pair isn't metadata)
-          field_key_entry = form.field_keys.create(form_id: form.id,
-                                            key_num: key_num,
-                                            subkey_num: subkey_num,
-                                            subkey: subkey_name,
-                                            key: key_name)
+        #URLs are not listed in the fieldStructure hash, instead they are presented as FieldNum-url => [url]
+        #Taking the substring excluding the "-url" allows for matching with field names
+        field_key_entry = form.field_keys.find_by(form_id: form.id, subkey_num: subkey_num[0..-5])
+        if field_key_entry
+          url = value
+          key_num = field_key_entry.key_num
+          key_name = field_key_entry.key
+          subkey_name = field_key_entry.subkey
+          subkey_num = subkey_num[0..-5] #strip "-url" from field name
+        else #This process relies on -url fields being sent after their respective non -url fields
+          expansion = expand_field_key_list(data['FieldStructure'], subkey_num)
+          key_num = expansion[:key_num]
+          key_name = expansion[:key_name]
+          subkey_name = expansion[:subkey_name]
+          if key_name #if a field number was found (i.e. the current pair isn't metadata)
+            field_key_entry = form.field_keys.create(form_id: form.id,
+                                                     key_num: key_num,
+                                                     subkey_num: subkey_num,
+                                                     subkey: subkey_name,
+                                                     key: key_name)
+          end
         end
       end
       if field_key_entry #if the current pair represents a field in the form (and not metadata)
@@ -52,11 +65,22 @@ class WebhooksController < ApplicationController
                                 key: key_name)
           resp_prop.save!
         end
+        if url
+          resp_subprop = resp_prop.response_subproperties.find_by(subkey_num: subkey_num)
+          if resp_subprop
+            resp_subprop.url = url
+            resp_subprop.save!
+          else
+            puts "URL FIELD LOADED BEFORE FIELD IT REFERENCES"
+          end
+        else
         #Create a subkey entry associated with the key being examined
-        resp_subprop = resp_prop.response_subproperties.new(subkey_num: subkey_num,
-                                                            subkey: subkey_name,
-                                                            value: value)
-        resp_subprop.save!
+          resp_subprop = resp_prop.response_subproperties.new(subkey_num: subkey_num,
+                                                              subkey: subkey_name,
+                                                              value: value,
+                                                              url: url)
+          resp_subprop.save!
+        end
       end
     end
 
