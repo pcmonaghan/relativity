@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106073607) do
+ActiveRecord::Schema.define(version: 20170201071946) do
 
   create_table "field_keys", force: :cascade do |t|
     t.string   "form_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20170106073607) do
     t.integer  "num_records"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
   create_table "response_properties", force: :cascade do |t|
@@ -56,7 +58,28 @@ ActiveRecord::Schema.define(version: 20170106073607) do
     t.datetime "updated_at",     null: false
     t.string   "form_record_id"
     t.integer  "form_id"
+    t.integer  "times_reviewed"
+    t.integer  "rank"
     t.index ["form_id"], name: "index_responses_on_form_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "form_id"
+    t.integer  "user_id"
+    t.integer  "response_one_id"
+    t.integer  "response_two_id"
+    t.integer  "stat_machine_learning_skill"
+    t.integer  "social_science_skill"
+    t.integer  "programming_cs_skill"
+    t.integer  "team_skill"
+    t.integer  "data_skill"
+    t.integer  "communication_skill"
+    t.integer  "care_about_social_good"
+    t.integer  "overall"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["form_id"], name: "index_reviews_on_form_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

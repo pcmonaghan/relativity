@@ -1,0 +1,171 @@
+<div class="modal fade" id="new_review" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" id="reset" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">Choose the Better Submission in Each Category</h4>
+      </div>
+      <form action="/comparisons" method="post">
+        <%= token_tag %>
+        <%= hidden_field_tag :user_id, current_user.id %>
+        <%= hidden_field_tag :response_one_id, @response1.id %>
+        <%= hidden_field_tag :response_two_id, @response2.id %>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4 text-center">Left Response</div>
+            <div class="col-md-4 text-center"></div>
+            <div class="col-md-4 text-center">Right Response</div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="sml" id="sml1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Statistics and Machine Learning Skills</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="sml" id="sml2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="ss" id="ss1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Social Science Skills</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="ss" id="ss2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="pcs" id="pcs1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Programming and Computer Science Skills</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="pcs" id="pcs2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="team" id="team1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Team Skills</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="team" id="team2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="data" id="data1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Data Skills</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="data" id="data2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="comm" id="comm1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Communication Skills</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="comm" id="comm2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="csg" id="csg1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">Cares About Social Good</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="csg" id="csg2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="overall" id="overall1" value="1" required>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 text-center h4">Overall</div>
+            <div class="col-md-4">
+              <div class="form-check center">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="overall" id="overall2" value="2" required>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="reset" data-dismiss="modal">Close</button>
+          <button type="button submit" id="reset" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

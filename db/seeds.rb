@@ -6,4 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Form.create(integration: 'wufoo', num_records: '0')
+Form.create(integration: 'wufoo', num_records: '0', user_id: '1')

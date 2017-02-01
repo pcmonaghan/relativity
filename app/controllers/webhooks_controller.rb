@@ -13,7 +13,7 @@ class WebhooksController < ApplicationController
     form = Form.find(form_id)
     form.num_records += 1
     form.save!
-    resp = form.responses.create!(form_record_id: form.num_records)
+    resp = form.responses.create!(form_record_id: form.num_records, times_reviewed: "0", rank: form.num_records)
 
     data.each do |tag, value|
       puts tag

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stat_machine_learning_skill: 1
+  social_science_skill: 1
+  programming_cs_skill: 1
+  team_skill: 1
+  data_skill: 1
+  communication_skill: 1
+  care_about_social_good: 1
+  overall: 1
+
+two:
+  stat_machine_learning_skill: 1
+  social_science_skill: 1
+  programming_cs_skill: 1
+  team_skill: 1
+  data_skill: 1
+  communication_skill: 1
+  care_about_social_good: 1
+  overall: 1

@@ -3,20 +3,23 @@
 <div class="jumbotron-fluid">
   <div class="container">
     <h1>Compare the two submissions below</h1>
-    <p>Click the button above the submission you believe is better.</p>
+    <p>Click the button below after reading both submissions.</p>
   </div>
 </div>
+
+<!-- new review -->
+<%= render 'layouts/review' %>
 
 <div class="container">
   <!-- Example row of columns -->
   <div class="row button-row">
-    <div class="col-md-6">
-      <a class="btn btn-primary btn-lg pref-button" href="#" role="button">&laquo The one on the left is better</a>
+    <div class="col-md-3">
     </div>
     <div class="col-md-6">
-      <a class="btn btn-primary btn-lg pref-button" href="#" role="button" >The one on the right is better &raquo;</a>
+      <a class="btn btn-primary btn-lg pref-button" data-toggle="modal" data-target="#new_review"> &laquo; I've made my decision &raquo;</a>
     </div>
   </div>
+<!-- display responses -->
   <% @response1_fields.zip(@response2_fields).each do |field1, field2| %>
     <div class="row">
       <div class="col-md-6">
@@ -87,3 +90,10 @@
  </div>
   <hr>
 </div> <!-- /container -->
+<script>
+  $(document).ready(function() {
+    $("#reset").click(function() {
+      $("input").attr('checked',false).val("");
+    });
+  });
+</script>
