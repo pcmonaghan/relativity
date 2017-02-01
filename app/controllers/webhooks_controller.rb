@@ -84,6 +84,31 @@ class WebhooksController < ApplicationController
       end
     end
 
+    col_header = "response#{resp.form_record_id}"
+    if ENV['RAILS_ENV'].to_s == 'development' || ENV['RAILS_ENV'].to_s == ''
+      #ActiveRecord::Base.establish_connection(
+      #  :adapter => "sqlite",
+      #  :database  => "db/development.sqlite3"
+      #)
+      ModelRank.connection.add_column(:model_ranks, "#{col_header}", :integer, options = {default: 0})
+      ModelRank.connection.schema_cache.clear!
+      ActiveRecord::Base.clear_active_connections!
+#      ModelRank.connection.execute("ALTER TABLE model_ranks ADD COLUMN #{col_header} INTEGER DEFAULT 0;")
+      resp_row_pos = form.model_ranks.new()
+      resp_row_pos.save!
+      resp_row_pos.update_column(col_header, 1)
+      resp_row_pos.save!
+      resp_row_neg = form.model_ranks.new()
+      resp_row_neg.save!
+      resp_row_neg.update_column(col_header, -1)
+      resp_row_neg.save!
+    elsif ENV['RAILS_ENV'].to_s == 'test'
+      #ActiveRecord::Base.establish_connection(
+      #  :adapter => "sqlite",
+      #  :database  => "db/test.sqlite3"
+      #)
+    end #ADD PRODUCTION MODEL
+
     render nothing: true
   end
 

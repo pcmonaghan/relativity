@@ -8,8 +8,8 @@
       <form action="/comparisons" method="post">
         <%= token_tag %>
         <%= hidden_field_tag :user_id, current_user.id %>
-        <%= hidden_field_tag :response_one_id, @response1.id %>
-        <%= hidden_field_tag :response_two_id, @response2.id %>
+        <%= hidden_field_tag :response1_id, @response1.id %>
+        <%= hidden_field_tag :response2_id, @response2.id %>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-4 text-center">Left Response</div>
