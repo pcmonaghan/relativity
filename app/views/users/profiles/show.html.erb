@@ -10,15 +10,24 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-4 center">
+    <div class="col-md-3 center">
       <h3> <%= link_to "Overall Ranking", user_path, {style: "color:black"}%> </h3>
     </div>
-    <div class="col-md-6 center">
-      <h3> Submissions </h3>
-    </div>
+    <% if @display_resp %>
+      <div class="col-md-6 center">
+        <h3> <%= "#{@display_resp_name.first.value} #{@display_resp_name.second.value}" %> </h3>
+      </div>
+      <div class="col-md-3">
+        <h3> Reviews </h3>
+      </div>
+    <% else %>
+      <div class="col-md-9 center">
+        <h3> Submissions </h3>
+      </div>
+    <% end %>
   </div>
   <div class="row">
-    <div class="col-md-4 center">
+    <div class="col-md-3 center">
       <% if @forms.empty? %>
         <p> You don't have any forms associated with your account.</p>
       <% else %>
@@ -33,10 +42,8 @@
         <% end %>
       <% end %>
     </div>
-    <div class="col-md-6">
-      <% if !@display_resp %>
-        <p class="center"> Graphical representation of ratings and error will go here eventually </p>
-      <% else %>
+    <% if @display_resp %>
+      <div class="col-md-6">
         <% @display_resp_fields.each do |field| %>
           <h4><%= field.key %></h4>
           <% field.response_subproperties.each do |subfield| %>
@@ -59,7 +66,44 @@
             <% end %>
           <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+      <div class="col-md-3">
+        <% @response_reviews.each do |resp_rev| %>
+          <% if (resp_rev.response1_id == @display_resp.id && resp_rev.overall == 1) %>
+            <h4 style="display:inline"> Won </h4>
+            <% name_array = Response.find(resp_rev.response2_id).response_properties.find_by(key_num: "Field2100").response_subproperties %>
+            <% response_num = resp_rev.id %>
+            <span>vs. <%= link_to "#{name_array.first.value} #{name_array.second.value}", user_submission_path(response_num) %></span>
+            <p>Reviewed by reviewer <%= resp_rev.user_id %></p>
+            <hr>
+          <% elsif (resp_rev.response2_id == @display_resp.id && resp_rev.overall == 2) %>
+            <h4 style="display:inline"> Won </h4>
+            <% name_array = Response.find(resp_rev.response1_id).response_properties.find_by(key_num: "Field2100").response_subproperties %>
+            <% response_num = resp_rev.id %>
+            <span>vs. <%= link_to "#{name_array.first.value} #{name_array.second.value}", user_submission_path(response_num) %></span>
+            <p>Reviewed by reviewer <%= resp_rev.user_id %></p>
+            <hr>
+          <% elsif (resp_rev.response1_id == @display_resp.id && resp_rev.overall == 2)%>
+            <h4 style="display:inline"> Lost </h4>
+            <% name_array = Response.find(resp_rev.response2_id).response_properties.find_by(key_num: "Field2100").response_subproperties %>
+            <% response_num = resp_rev.id %>
+            <span>vs. <%= link_to "#{name_array.first.value} #{name_array.second.value}", user_submission_path(response_num) %></span>
+            <p>Reviewed by reviewer <%= resp_rev.user_id %></p>
+            <hr>
+          <% else %>
+            <h4 style="display:inline"> Lost </h4>
+            <% name_array = Response.find(resp_rev.response1_id).response_properties.find_by(key_num: "Field2100").response_subproperties %>
+            <% response_num = resp_rev.id %>
+            <span>vs. <%= link_to "#{name_array.first.value} #{name_array.second.value}", user_submission_path(response_num) %></span>
+            <p>Reviewed by reviewer <%= resp_rev.user_id %></p>
+            <hr>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-md-9 center">
+        <p> Graphical representation of ratings and error will go here eventually </p>
+      </div>
+    <% end %>
   </div>
 </div>
