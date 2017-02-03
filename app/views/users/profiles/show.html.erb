@@ -46,7 +46,7 @@
       <div class="col-md-6">
         <% @display_resp_fields.each do |field| %>
           <h4><%= field.key %></h4>
-          <% field.response_subproperties.each do |subfield| %>
+          <% field.response_subproperties.reverse.each do |subfield| %>
             <!-- Excludes labels w/o values  -->
             <% unless subfield.value.blank? %>
               <!-- Print value label, when labels add context -->
