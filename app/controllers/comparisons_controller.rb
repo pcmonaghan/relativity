@@ -26,13 +26,13 @@ class ComparisonsController < ApplicationController
 
 
     if(!!@response1)
-      @response1_fields = @response1.response_properties
+      @response1_fields = @response1.response_properties.reverse
     else
       @response1_fields = nil
     end
 
     if(!!@response2)
-      @response2_fields = @response2.response_properties
+      @response2_fields = @response2.response_properties.reverse #shows up in wrong order w/ postgres
     else
       @response2_fields = nil
     end

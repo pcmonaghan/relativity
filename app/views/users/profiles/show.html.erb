@@ -1,6 +1,6 @@
 <% provide(:title, "Profile") %>
 
-<% id_num = current_user.id %>
+<% #id_num = @user.id %>
 
 <div class="jumbotron-fluid">
   <div class="container">
@@ -11,9 +11,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 center">
-      <h3> <%= link_to "Overall Ranking", user_path(id_num), {style: "color:black"}%> </h3>
+      <h3> <%= link_to "Overall Ranking", user_path, {style: "color:black"}%> </h3>
     </div>
-    <div class="col-md-8 center">
+    <div class="col-md-6 center">
       <h3> Submissions </h3>
     </div>
   </div>
@@ -26,7 +26,7 @@
         <% @responses.each do |response| %>
           <% name_array = response.response_properties.find_by(key_num: "Field2100").response_subproperties %>
           <% response_num = response.id %>
-          <h4><%= link_to "#{n}: #{name_array.first.value} #{name_array.second.value}", user_submission_path(id_num,response_num) %></h4>
+          <h4><%= link_to "#{n}: #{name_array.first.value} #{name_array.second.value}", user_submission_path(response_num) %></h4>
           <span>Raw rating: <%= response.rating %></span>
           <% n+=1 %>
           <hr>

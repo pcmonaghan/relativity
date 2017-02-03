@@ -7,7 +7,7 @@
         <% if user_signed_in? %>
           <ul class="nav navbar-nav navbar-right">
             <% id_num = current_user.id %>
-            <li><%= link_to "Profile", user_path(id_num)%></li><!--#user_path(current_user.id)-->
+            <li><%= link_to "Profile", user_path%></li><!--#user_path(current_user.id)-->
             <li class="divider"></li>
             <li>
               <%= link_to "Log out", destroy_user_session_path, method: "delete" %>

@@ -2,9 +2,9 @@ class Users::ProfilesController < ApplicationController
   def show
     @user = current_user
 
-    if(!@user || @user.id != params[:id].to_i)
-      redirect_to :unauthenticated_root
-    end
+#    if(!@user || @user.id != params[:id].to_i)
+#      redirect_to :unauthenticated_root
+#    end
     @forms = @user.forms
     @reviews = Review.where(user_id: @user.id)
     @responses = Form.find(1).responses.order(:rank)
