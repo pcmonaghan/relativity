@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201142848) do
+ActiveRecord::Schema.define(version: 20170202174851) do
 
   create_table "field_keys", force: :cascade do |t|
     t.string   "form_id"
@@ -25,9 +25,10 @@ ActiveRecord::Schema.define(version: 20170201142848) do
   create_table "forms", force: :cascade do |t|
     t.string   "integration"
     t.integer  "num_records"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "user_id"
+    t.integer  "num_reviews", default: 0
     t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
@@ -37,6 +38,10 @@ ActiveRecord::Schema.define(version: 20170201142848) do
     t.datetime "updated_at",             null: false
     t.integer  "response1",  default: 0
     t.integer  "response2",  default: 0
+    t.integer  "response3",  default: 0
+    t.integer  "response4",  default: 0
+    t.integer  "response5",  default: 0
+    t.integer  "user1",      default: 0
     t.index ["form_id"], name: "index_model_ranks_on_form_id"
   end
 
@@ -63,11 +68,13 @@ ActiveRecord::Schema.define(version: 20170201142848) do
   end
 
   create_table "responses", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "form_record_id"
     t.integer  "form_id"
     t.integer  "times_reviewed"
+    t.float    "rating"
+    t.float    "next_rating",    default: -1.0
     t.integer  "rank"
     t.index ["form_id"], name: "index_responses_on_form_id"
   end

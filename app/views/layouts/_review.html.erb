@@ -6,7 +6,7 @@
         <h4 class="modal-title text-center">Choose the Better Submission in Each Category</h4>
       </div>
       <form action="/comparisons" method="post">
-        <%= token_tag %>
+        <%= token_tag nil %>
         <%= hidden_field_tag :user_id, current_user.id %>
         <%= hidden_field_tag :response1_id, @response1.id %>
         <%= hidden_field_tag :response2_id, @response2.id %>

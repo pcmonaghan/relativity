@@ -1,4 +1,9 @@
 <% provide(:title, "Compare Submissions") %>
+
+<% if(!user_signed_in?) %>
+  <span> ERROR: USER NOT SIGNED IN </span>
+<% end %>
+
   <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron-fluid">
   <div class="container">
