@@ -1,0 +1,65 @@
+<% provide(:title, "Profile") %>
+
+<% id_num = current_user.id %>
+
+<div class="jumbotron-fluid">
+  <div class="container">
+    <h1><%= @user.email %></h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 center">
+      <h3> <%= link_to "Overall Ranking", user_path(id_num), {style: "color:black"}%> </h3>
+    </div>
+    <div class="col-md-8 center">
+      <h3> Submissions </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 center">
+      <% if @forms.empty? %>
+        <p> You don't have any forms associated with your account.</p>
+      <% else %>
+        <% n = 1 %>
+        <% @responses.each do |response| %>
+          <% name_array = response.response_properties.find_by(key_num: "Field2100").response_subproperties %>
+          <% response_num = response.id %>
+          <h4><%= link_to "#{n}: #{name_array.first.value} #{name_array.second.value}", user_submission_path(id_num,response_num) %></h4>
+          <span>Raw rating: <%= response.rating %></span>
+          <% n+=1 %>
+          <hr>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <% if !@display_resp %>
+        <p class="center"> Graphical representation of ratings and error will go here eventually </p>
+      <% else %>
+        <% @display_resp_fields.each do |field| %>
+          <h4><%= field.key %></h4>
+          <% field.response_subproperties.each do |subfield| %>
+            <!-- Excludes labels w/o values  -->
+            <% unless subfield.value.blank? %>
+              <!-- Print value label, when labels add context -->
+              <% unless ((field.response_subproperties.size == 1) ||
+                         (subfield.value == subfield.subkey))%>
+                <h5 style="display:inline"><%= subfield.subkey + ": " %></h5>
+              <% end %>
+              <!-- Print value, with added formatting for dates -->
+              <% if (field.key.include? "Date") %>
+                <span><%= subfield.value[4...6] + "-" + subfield.value[6...8] + "-" + subfield.value[0...4] %></span>
+              <% elsif !!subfield.url%>
+                <span><%= link_to "#{subfield.value}", subfield.url %></span>
+              <% else %>
+                <span><%= subfield.value %></span>
+              <% end %>
+              <p></p>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202174851) do
+ActiveRecord::Schema.define(version: 20170203022656) do
 
   create_table "field_keys", force: :cascade do |t|
     t.string   "form_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170202174851) do
     t.datetime "updated_at",              null: false
     t.integer  "user_id"
     t.integer  "num_reviews", default: 0
+    t.string   "name"
     t.index ["user_id"], name: "index_forms_on_user_id"
   end
 

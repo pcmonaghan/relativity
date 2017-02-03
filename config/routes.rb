@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :users do
+    get 'profiles/show'
+  end
+
+  get 'profiles/show'
+
   get 'reviews/new'
 
   devise_for :users
@@ -15,7 +21,8 @@ Rails.application.routes.draw do
   get 'static_pages/home', to: 'static_pages#home'
   get 'comparisons', to: 'comparisons#compare'
   post 'comparisons', to: 'comparisons#new_review'
-  get 'users/:id', to: 'users#show', as: :user
+  get 'users/profiles/show/:id', to: 'users/profiles#show', as: :user
+  get 'users/profiles/show/:id/:response', to: 'users/profiles#show', as: :user_submission
   post '/:integration_name/update-forms', to: 'webhooks#recieve', as: :receive_webhooks
   constraints subdomain: "hooks" do
     post '/:integration_name' => 'webhooks#receive' #as: :receive_webhooks
