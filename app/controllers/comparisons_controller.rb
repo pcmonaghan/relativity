@@ -54,28 +54,29 @@ class ComparisonsController < ApplicationController
       end
       return response_pool.offset(rand(response_pool.count)).first
 
-    #Choses records from the middle of the pool of records with the fewest reviews, after each has two
+    #Choses records from the middle of the pool of records with the fewest reviews, after each has given number
     elsif(method >= 1) #Parameter is number of reviews at which ranked pairing begins
       min_reviews = 0
-      response_pool = form.responses.where(times_reviewed: min_reviews)
-      while(response_pool.empty?)
+      responses = form.responses
+      response_pool = responses.where(times_reviewed: min_reviews)
+      while(response_pool.empty? || (response_pool.second.nil? && response_pool.first == @response1))
         min_reviews += 1
-        response_pool = form.responses.where(times_reviewed: min_reviews)
+        response_pool = responses.where(times_reviewed: min_reviews)
       end
       #random choice if too small number of reviews
       if(min_reviews < method)
         return response_pool.offset(rand(response_pool.count)).first
       else
-        desired_rank = form.responses.count
+        desired_rank = responses.count
         desired_rank = (desired_rank/2.0).ceil
-        resp = form.responses.find_by(rank: desired_rank)
+        resp = responses.find_by(rank: desired_rank)
         n = 1
-        if(response_pool.second.nil?)
+        if(response_pool.second.nil? && response_pool.first == @response1)
           min_reviews += 1
         end
         while(resp.times_reviewed > min_reviews || resp == @response1)
           desired_rank += n
-          resp = form.responses.find_by(rank: desired_rank)
+          resp = responses.find_by(rank: desired_rank)
           n *= -1
           if(n<0)
             n -= 1
@@ -152,7 +153,10 @@ class ComparisonsController < ApplicationController
     @form.save!
 
     #re-rate responses every 5 reviews
-    if(@form.num_reviews % 5 == 0)
+    num_responses = @form.responses.count
+    if(num_responses >= 10 && (@form.num_reviews % (num_responses/2) == 0))
+      @form.rate_responses
+    elsif(@form.num_reviews % num_responses == 0)
       @form.rate_responses
     end
   end

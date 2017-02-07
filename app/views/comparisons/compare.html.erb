@@ -27,7 +27,8 @@
     <div class="row">
       <div class="col-md-6">
         <h4><%= field1.key %></h4>
-        <% field1.response_subproperties.reverse.each do |subfield| %>
+        <% field1_response_subproperties = field1.response_subproperties.reverse %>
+        <% field1_response_subproperties.each do |subfield| %>
           <!-- Excludes labels w/o values  -->
           <% unless subfield.value.blank? %>
             <!-- Print value label, when labels add context -->
@@ -49,7 +50,8 @@
       </div>
       <div class="col-md-6">
         <h4><%= field2.key %></h4>
-        <% field2.response_subproperties.reverse.each do |subfield| %>
+        <% field2_response_subproperties = field2.response_subproperties.reverse %>
+        <% field2_response_subproperties.each do |subfield| %>
           <!-- Excludes labels w/o values  -->
           <% unless subfield.value.blank? %>
             <!-- Print value label, when labels add context -->
